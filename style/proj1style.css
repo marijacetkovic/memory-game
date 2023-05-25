@@ -681,7 +681,7 @@ source: https://www.w3schools.com/howto/howto_css_flip_card.asp
 
 @font-face{
 	font-family:"Evermore";
-	src: url("../fonts/Evermore.otf") format("opentype");
+	src: url("../fonts/Evermore.ttf") format("truetype");
 }
 
 #timerid{

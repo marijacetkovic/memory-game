@@ -1,0 +1,886 @@
+/*body*/
+
+body{
+	text-align: center;
+	background-color: #170340;
+	background-image: url("../imgs/pozadinaboja.jpg");
+	background-size: cover;
+	background-repeat: none;
+
+}
+
+h1{
+	font-family: "Evermore";
+	src: url("../fonts/Evermore.otf");
+	color: #F24405;
+	letter-spacing: 8.5px;
+	font-size: 4vmax;
+	text-shadow: 5px 3px 1px #f28d52,10px 8px 1px #f5af85;
+	transition: 1s;
+}
+
+
+/*characters imgs style position animation*/
+.slike{
+	position: absolute;
+	opacity: 60%;
+	animation: updown 2s infinite;
+	transition: 1s;
+
+}
+#pixieimgid{
+	right: 13%;
+	bottom: 10%;
+	max-height: 19vw;
+}
+#velmaimgid{
+	right: 13%;
+	bottom: 70%;
+	max-height: 9vw;
+}
+
+#garfildimgid{
+	bottom: 1.4%;
+	left: 1%;
+	max-height: 15.5vw;
+}
+
+#darwinimgid{
+	right: 2.5%;
+	bottom: 1%;
+	max-height: 17.5vw;
+}
+#charizardimgid{
+	rotate: 2deg;
+	left: 60%;
+	bottom: 18%;
+	max-height: 11vw;
+}
+#jerryimgid{
+	max-height: 16vw;
+	left: 2%;
+	bottom: 11%;
+
+}
+
+#phineasimgid{
+	right: 7%;
+	bottom: 4%;
+	max-height: 20vw;
+}
+#perryimgid{
+	max-height: 6vw;
+	right: 18%;
+	top: 15%;
+}
+
+#stitchimgid{
+	max-height: 17vw;
+	left: 6%;
+	bottom: 15%;
+}
+
+#kimimgid{
+	max-height: 15vw;
+	left: 8%;
+	top: 19%;
+}
+#amongusid1{
+	height: 8.5vw;
+	left: 17%;
+	top: 10%;
+}
+#missimgid{
+	rotate: -2deg;
+	height: 13vw;
+	left: 26%;
+	bottom: 22%;
+}
+
+.slike:hover{
+	opacity: 1;
+	animation: updown 1s infinite;
+}
+
+/*stars styling and positioning*/
+
+.stars{
+	z-index: -3;
+	opacity: 20%;
+	position: absolute;
+	max-height: 1.3vw;
+	animation: rotate 2s ease-in-out infinite alternate-reverse;
+}
+
+/*titlepage stars*/
+
+#star1{
+	bottom: 25%;
+	left: 25%;
+}
+
+#star2{
+	left: 10%;
+	top: 10%;
+}
+
+#star3{
+	right: 10%;
+	top: 10%;
+}
+
+#star4{
+	right: 36%;
+	top: 30%;
+}
+
+#star5{
+	bottom: 20%;
+	right: 40%;
+}
+
+#star6{
+	right: 25%;
+	bottom: 40%;
+}
+
+#star7{
+	top: 35%;
+	left: 35%;
+}
+#star8{
+	top: 45%;
+	left: 5%;
+}
+
+#star9{
+	top: 37%;
+	right: 5%;
+}
+#star10{
+	left: 40%;
+	bottom: 5%;
+}
+
+@keyframes rotate{
+	from {opacity: 20%; 
+		  transform: rotate(-25deg);}
+	to   {opacity: 60%;
+	      transform: rotate(25deg);}
+}
+
+
+/*titlepage styling*/
+.main{
+	margin-top: 2.3em;
+}
+.titles{
+	position: relative;
+	padding-bottom: 0.3em;
+}
+.titles, .instructions, .titles a, .instructions,.mode,#sharebutton, .backbutton a, p, label, h2, #resetbutton, #label,.endmessage{
+	color: #d93d04;
+	letter-spacing: 2px;
+	font-size: 0.95vw;
+	font-family: "Evermore";
+	src: url("Evermore.otf");
+	border: 1px solid transparent;
+	margin: 5px;
+	text-shadow: 0.15vw 0.15vw 0px #f28d52,0.2vw 0.2vw 0px #f5af85;
+
+}
+
+
+.titles a{
+	display: block;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+#newgameid, #newgameid a{
+	font-size: 1.8vw;
+	text-shadow: 0.15vw 0.15vw 0vw #f28d52,0.25vw 0.25vw 0vw #f5af85;
+}
+
+.titles:hover{
+	/*border: 1px solid #f28005;*/
+	font-size: 1.05vw;
+
+}
+
+.titles a:hover{
+	font-size: 1.05vw;
+}
+
+#newgameid a:hover{
+	font-size: 2vw;
+}
+#paragraph1{
+	color: rgba(250, 171, 102,0.7);
+	font-size: 0.6vw;
+	max-width: 50%;
+	left: 25%;
+	position: relative;
+	text-shadow: none;
+}
+#paragraph1:hover{
+	transition: 0.3s;
+	animation: opacitychange 1s infinite;
+}
+
+h1:hover{
+	animation: updown 1s infinite;
+}
+
+@keyframes opacitychange{
+	from { opacity: 0.5; }
+	to { opacity: 1; }
+}
+
+@keyframes updown{
+	0% {transform: translate(0,-4px);}
+	50% {transform: translate(0,4px);}
+	100% {transform: translate(0,-4px);}
+}
+
+
+/*arrows  source:  https://css-tricks.com/snippets/css/css-triangle/*/
+
+.rightarrow{
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+	border-left: 0.40vw solid transparent;
+	border-bottom: 0.40vw solid transparent;
+	border-top: 0.40vw solid transparent;
+	border-right: 0.65vw solid #d93d04;
+	transition: border;
+
+}
+
+ .leftarrow{
+ 	position: absolute;
+ 	opacity: 0;
+	width: 0;
+	height: 0;
+	border-right: 0.40vw solid transparent;
+	border-bottom: 0.40vw solid transparent;
+	border-top: 0.40vw solid transparent;
+	border-left: 0.65vw solid #d93d04;
+	transition: border;
+}
+
+#firstleft, #firstright{
+	top: 45%;
+	transform: scale(3);
+}
+
+#firstleft{
+	left: 38%;
+}
+#firstright{
+	left: 61%;
+}
+
+
+
+#fourthleft, #fourthright, #secondleft, #secondright, #thirdleft, #thirdright{
+	top: 40%;
+	transform: scale(2);
+}
+
+#secondleft, #thirdleft{
+	left: 42%;
+}
+#secondright, #thirdright{
+	left: 57%;
+}
+#fourthleft{
+	left: 43%;
+}
+#fourthright{
+	left: 56%;
+}
+
+#newgameid:hover #firstleft{
+	opacity: 1;
+	transition: 1s;
+	animation: arrowanimationl 1s linear infinite backwards;
+}
+#newgameid:hover #firstright{
+	opacity: 1;
+	transition: 1s;
+	animation: arrowanimationr 1s linear infinite backwards;
+}
+
+#gamemodeid:hover #secondleft{
+	opacity: 1;
+	transition: 1s;
+	animation: arrowanimationl 1s linear infinite backwards;
+}
+#gamemodeid:hover #secondright{
+	opacity: 1;
+	transition: 1s;
+	animation: arrowanimationr 1s linear infinite backwards;
+}
+#howtoplayid:hover #thirdleft{
+	opacity: 1;
+	transition: 1s;
+	animation: arrowanimationl 1s linear infinite backwards;
+}
+#howtoplayid:hover #thirdright{
+	opacity: 1;
+	transition: 1s;
+	animation: arrowanimationr 1s linear infinite backwards;
+}
+#customizeid:hover #fourthleft{
+	opacity: 1;
+	transition: 1s;
+	animation: arrowanimationl 1s linear infinite backwards;
+}
+#customizeid:hover #fourthright{
+	opacity: 1;
+	transition: 1s;
+	animation: arrowanimationr 1s linear infinite backwards;
+}
+
+
+
+@keyframes arrowanimationr{
+	0% {border-right-color:#d93d04 ;}
+
+	50% {border-right-color: #FF8C62;}
+
+	100% {border-right-color: #ffa98a;}
+}
+
+@keyframes arrowanimationl{
+	0% {border-left-color:#d93d04 ;}
+
+	50% {border-left-color: #FF8C62;}
+
+	100% {border-left-color: #ffa98a;}
+}
+
+
+/*instructions page*/
+
+
+.instructions {
+	display: inline-block;}
+
+#instr1, #instr2{
+	margin-right: 1vw;
+}
+
+
+#dropinstr1, #dropinstr2, #dropinstr3{
+	position: absolute;
+	border: 1px solid #f5842f;
+	padding: 3px;
+	border-radius: 5px;
+	transition:1s;
+	display: none;}
+
+#dropinstr1 {
+	right: 23%;
+	bottom: 35%; 
+}
+
+#dropinstr2 {
+	right: 30%;
+	bottom: 38%; 
+}
+
+#dropinstr3 {
+	right: 29%;
+	bottom: 43%;
+}
+
+
+#instr1:hover #dropinstr1{
+display: block;}
+
+#instr2:hover #dropinstr2{
+display: block;}
+
+#instr3:hover #dropinstr3{
+display: block;}
+
+
+.backbutton, .backbutton a{
+	text-decoration: none;
+	position: absolute;
+}
+#backfrominstr{
+	bottom: 7.5%;
+	left: 46.3%;
+}
+
+.instructions{
+	text-shadow:text-shadow: 1.5px 1.5px 0px #f28d52;
+}
+
+.instructions p{
+	font-size: 0.63vw;
+	text-shadow: none;
+}
+
+#instrparagraph{
+	position: absolute;
+	left: 40%;
+	top: 27%;
+	margin-top: 0;
+	font-size: 0.55vw;
+	text-shadow: none;
+	animation: paragraph 5s ease-out forwards;
+}
+
+#instrcontainer{
+	position: absolute;
+	top: 32%;
+	left: 11%;
+	height: 40%;
+	width: 70%;
+}
+
+@keyframes paragraph{
+	from { left: 0;
+		   color: #f5af85; } 
+	to   { color: #d93d04;
+		   left: 26%; }
+}
+
+#howtoplayheader{
+	position: absolute;
+	top: 1.5%;
+	left: 26%;
+}
+
+#starcontainer{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+#star11{
+	left: 7%;
+	top: 10%;
+}
+
+#star12{
+	right: 18%;
+	top: 8%;
+}
+
+#star13{
+	left: 25%;
+	bottom: 8%;
+}
+
+#star14{
+	right: 6%;
+	top: 16%;
+}
+
+#star15{
+	right: 16%;
+	top: 40%;
+}
+
+#star16{
+	right: 4%;
+	bottom: 6%;
+}
+#star17{
+	left: 13%;
+	top: 31%;
+}
+
+#star18{
+	left: 4%;
+	top: 55%;
+}
+
+#star19{
+	right: 30%;
+	bottom: 15%;
+}
+
+#star20{
+	left: 40%;
+	bottom: 20%;
+}
+
+#star21{
+	left: 67%;
+	top: 42%;
+}
+
+#star22{
+	left: 11%;
+	bottom: 14%;
+}
+#star23{
+	right: 52%;
+	top: 5%;
+}
+
+#star24{
+	right: 12%;
+	bottom: 50%;
+}
+#star25{
+	right: 30%;
+	bottom: 72%;
+}
+
+#star26{
+	left: 35%;
+	bottom: 60%;
+}
+#star27{
+	left: 27%;
+	bottom: 40%;
+}
+#star28{
+	right: 35%;
+	bottom: 30%;
+}
+
+#star30{
+	right: 15%;
+	top: 35%;
+}
+
+#star31{
+	right: 20%;
+	top: 15%;
+}
+
+#star32{
+	right: 23%;
+	bottom: 13%;
+}
+
+#star33{
+	right: 10%;
+	bottom: 35%;
+}
+
+#star34{
+	left: 10%;
+	bottom: 5%;
+}
+
+#star35{
+	top: 10%;
+	left: 25%;
+}
+
+
+
+/*game page*/
+
+/*for the flip card effect i used code from w3schools and modified it
+source: https://www.w3schools.com/howto/howto_css_flip_card.asp
+*/
+.card-container{
+	position: absolute;
+	top: 3%;
+	left: 28.5%;
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 50vw;
+	max-height: 50vw;
+	perspective: 1000px;
+
+}
+
+.card-item { 
+	position: relative;
+	margin-right: 2.5vw;
+ 	height: 10.9vw; 
+ 	width: 8.5vw;
+ 	transition: transform 0.4s;
+ 	transform-style: preserve-3d;
+}
+
+.card-upface,.card-downface{
+  position: absolute;
+	top: 0;
+	left: 0;
+	backface-visibility: hidden;
+}
+
+.card-upface{
+	box-shadow: 1px 1px 4px #b6d5f0, -1px -1px 4px #b6d5f0;
+}
+
+.card-item img{
+	border-radius: 3%;
+	height: 9.5vw;
+	width: 8.5vw;
+	box-sizing: border-box;
+}
+
+.hardMode{
+	height: 8vw; 
+ 	width: 6.3vw;
+}
+
+.hardMode img{
+	height: 7.3vw;
+	width: 6.3vw;
+}
+
+.easyMode{
+ height: 17vw;
+ width: 13vw;
+}
+.easyMode img{
+	height: 15.3vw;
+	width: 13vw;
+}
+
+
+
+.card-item:hover img{
+	border: 3.5px dashed rgba(252, 203, 159, 0.8);
+}
+
+.flip{
+	  transform: rotateY(180deg);
+}
+.card-upface{
+	transform: rotateY(180deg);
+}
+
+
+#backfromnewgame{
+	left: 47%;
+	bottom: 4.9%;
+}
+
+#label{
+	position: absolute;
+	right: 10vw;
+	bottom: 13vw;
+}
+#label p{
+	color: #b6d5f0;
+	text-shadow: 1.5px 1.5px 1px #4D7D9A;
+}
+/*source:  https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face*/
+
+@font-face{
+	font-family:"Digital-7";
+	src: url("../fonts/digital-7.ttf") format("truetype");
+}
+
+#timerid{
+	font-family: 'Digital-7';
+	color: #b6d5f0;
+	text-shadow: 1.5px 1.5px 1px #4D7D9A;
+	font-size: 7.5vw;
+	letter-spacing: 0.2vw;
+	width: 15.1vw;
+	height: 7.5vw;
+	border-radius: 3%;
+}
+
+
+
+#resetbutton{
+	color: #b6d5f0;
+	padding: 0.2em;
+	height: 2.3vw;
+	width: 12vw;
+	position: absolute;
+	font-size: 1.25vw;
+	left: 13%;
+	bottom: 23%;
+	text-shadow: 0.5px 0.5px 0px #4D7D9A;
+	border-radius: 1em;
+	transition: 0.5s;
+	cursor: pointer;
+}
+
+#resetbutton:hover, #timerid:hover{
+	color: #170340;
+	background-color: rgba(182,213,240,0.8);
+	box-shadow: 1.5px 1.5px 6px rgba(98,195,217,0.8);
+}
+
+.endmessage{
+	display: none;
+	height: 33vw;
+	width: 50vw;
+	position: absolute;
+	border-radius: 2%;
+	background-color: rgba(37, 10, 92, 0.8);
+	padding: 1vw;
+	top: 15%;
+	left: 24%;
+	text-align: center;
+	font-size: 2vw;
+	line-height: 5vw;
+	border: 8px dotted rgba(240, 71, 10, 0.5);
+}
+.endmessage:hover{
+	background-color: rgba(37, 10, 92, 0.9);
+	border: 8px dotted rgba(240, 71, 10, 1);
+}
+
+#audioR{
+	display: none;
+}
+
+/*share this with page*/
+
+
+.sharing{
+	max-height: auto;
+	max-width: auto;
+	position: absolute;
+	border-radius: 2%;
+	background-color: rgba(37, 10, 92, 0.2);
+	padding: 1vw;
+	top: 15%;
+	left: 23%;
+	border: 6px dotted rgba(240, 71, 10, 0.5);
+}
+.sharing:hover{
+	background-color: rgba(37, 10, 92, 0.4);
+	border: 6px dotted rgba(240, 71, 10, 1);
+}
+label{
+	text-shadow: none;
+	color: #f28d52;
+	font-size: 0.6vw;
+	letter-spacing: 0.2vw;
+	transition: 0.5s;
+}
+input[type="email"], textarea{
+	margin-bottom: 2vw;
+	margin-top: 0.2vw;
+	background: linear-gradient(to bottom left, #FFE4CD 0%, #ffc796 50%, #f7b479 100%);
+	border: 2px solid #AE431E;
+	box-sizing: border-box;
+}
+
+input[type="email"]:focus, textarea:focus{
+	outline: none;
+
+}
+
+form{
+	padding: 1vw;
+	max-height: 65vw;
+	max-width: 60vw;
+}
+#messagediv{
+	max-height: 24vw;
+	max-width: 20vw;
+	position: relative;
+	left: 29%;
+	top: 15%;
+}
+textarea{
+	border-radius: 5%;
+	max-height: 13vw;
+	max-width: 13vw;
+	box-sizing: border-box;
+}
+
+#sharebutton{
+	height: 2.4vw;
+	color: #d93d04;
+	width: 7.5vw;
+	font-size: 0.84vw;
+	text-shadow: none;
+	border-radius: 5%;
+	border: 2px solid #AE431E;
+	box-sizing: border-box;
+	background: linear-gradient(to bottom left, #FFE4CD 0%, #ffc796 50%, #f7b479 100%);
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+}
+
+#sharebutton:hover {
+  transform: scale(1.05) rotate(-3deg);
+}
+
+#shareheader{
+	letter-spacing: 0.3vw;
+}
+
+//* mode page *//
+.modecontainer{
+	position: absolute;
+	
+}
+.cardmode{
+	border-radius: 2%;
+	position: absolute;
+	max-height: 20vw;
+	max-width: 16vw;
+	box-shadow: -8px 8px 6px #bf3c04;
+}
+
+.cardmode.c1{
+	z-index: -2;
+	top: 27%;
+	left: 29%;
+	transform: rotate(-16deg);
+}
+.cardmode.c2{
+	top: 23%;
+	z-index: -1;
+	left: 42%;
+}
+
+.cardmode.c3{
+	z-index: 0;
+	top: 27%;
+	left: 54%;
+	transform: rotate(16deg);
+}
+
+.cardmode:hover{
+		z-index: 1;
+		max-height: 22vw;
+		box-shadow: -8px 8px 6px #bf3c04,-13px 13px 8px #f7b177;
+
+}
+
+.mode{
+	display: none;
+	position: absolute;
+	bottom: 22%;
+	left: 46%;
+	font-size: 1.15vw;
+	color: #f28d52;
+	text-shadow: 1px 1px 0px #4D7D9A;
+	transition: 0.5s;
+}
+.medium{
+	left: 43.5%;
+}
+
+.cardmode.c1:hover+.easy {
+  display: block;
+  animation: updown 1s infinite;
+}
+
+.cardmode.c2:hover+.medium {
+  display: block;
+	animation: updown 1s infinite;
+}
+
+.cardmode.c3:hover+.hard {
+  display: block;
+ 	animation: updown 1s infinite;
+}

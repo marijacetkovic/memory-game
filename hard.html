@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hard Mode</title>
+	<link rel="icon" type="image/x-icon" href="style/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="style/proj1style.css">
+
+</head>
+<body>
+	<img id="stitchimgid" class="slike" src="imgs/stitch.png">
+	<div id="label">
+		<p id="pairsFound">pairs found: 0</p>
+		<p id="numMoves"># moves: 0</p>
+		<p id="maxScore">max score: 0</p>
+		<div id="timerid">01:30
+		</div>
+	</div>
+	<div class="starcontainer">
+		<img id="star11" class="stars" src="imgs/star.png">
+		<img id="star13" class="stars" src="imgs/star.png">
+		<img id="star14" class="stars" src="imgs/star.png">
+		<img id="star16" class="stars" src="imgs/star.png">
+		<img id="star17" class="stars" src="imgs/star.png">
+		<img id="star18" class="stars" src="imgs/star.png">
+		<img id="star30" class="stars" src="imgs/star.png">
+		<img id="star31" class="stars" src="imgs/star.png">
+		<img id="star32" class="stars" src="imgs/star.png">
+		<img id="star33" class="stars" src="imgs/star.png">
+		<img id="star34" class="stars" src="imgs/star.png">
+		<img id="star35" class="stars" src="imgs/star.png">
+
+	</div>
+	
+		<audio  id="audioR">
+		<source src="audio/neverGonnaGiveYouUp.mp3" type="audio/mp3">
+		</audio>
+	<div id="resetbutton">reset me</div>	
+	<div id="backfromnewgame" class="backbutton"><a href="mode.html">Back</a>
+
+
+	<script type="text/javascript">
+		
+		const cardImages = ["cards/card1.png","cards/card1.png","cards/card2.png","cards/card2.png","cards/card3.png","cards/card3.png","cards/card4.png","cards/card4.png","cards/card5.png","cards/card5.png","cards/card6.png","cards/card6.png","cards/card7.png","cards/card7.png","cards/card8.png","cards/card8.png","cards/card9.png","cards/card9.png","cards/card10.png","cards/card10.png"];
+
+		let randNumbArray = getRandomNumber(cardImages.length);
+		let currentlyFlipped = 0;
+		let currentCard1 = null;
+		let currentCard2 = null;
+		let pairsFound=0;
+		let numMoves=0;
+		let maxScore = 0;
+		let numMovesLabel = document.getElementById("numMoves");
+		let maxScoreLabel = document.getElementById("maxScore");
+		let pairsFoundLabel = document.getElementById("pairsFound");
+		let time = 90;
+		let timerStarted = false;
+		let checkedMap = new Map();		
+		const resetButton = document.getElementById("resetbutton");
+		const cards = document.getElementsByClassName("card-item"); //returns array of elements with card-item class
+		const timerDiv = document.getElementById("timerid");
+		const container = document.getElementsByClassName("card-container")[0];	
+		let audioR = document.getElementById("audioR");
+	
+		//generate card divs
+		generateScreen();
+		const message = document.getElementById("msgDiv");	
+		
+		//shuffle them at the beginning and enable
+		shuffleCardImages(cardImages);
+
+		//set hard mode
+		setHard();
+
+		//enable cards
+		enableCards();
+
+		function generateScreen(){
+			const cardContainer = document.createElement("div"); //make the container
+			cardContainer.classList.add("card-container"); //add class name
+			
+			for (let i = 1; i <= cardImages.length; i++) { //make as many cards as there are images
+			const cardItem = document.createElement("div"); //make one div that will contain the images
+			cardItem.id = "card" + i; //make its id
+			cardItem.classList.add("card-item"); //and class
+
+			const cardUpface = document.createElement("img"); //create two img elements one upface and one backface
+			cardUpface.className = "card-upface";
+			cardUpface.src = "";
+
+			const cardBackface = document.createElement("img");
+			cardBackface.className = "card-backface";
+			cardBackface.src = "imgs/cardback.png";
+
+			cardItem.appendChild(cardUpface); //append img children to div parent
+			cardItem.appendChild(cardBackface);
+
+			cardContainer.appendChild(cardItem); //append currently generated card item div to the container
+			}
+			const msgDiv = document.createElement("div"); //make the msg div to show at the end
+			msgDiv.id = "msgDiv";
+			msgDiv.className = "endmessage";
+
+			//finally add the container and msgdiv to the body
+			document.body.appendChild(cardContainer); 
+			document.body.appendChild(msgDiv);
+		}	
+
+		function setHard(){
+			var container = document.getElementsByClassName("card-container")[0];		
+	
+			for (var i = 0; i < cards.length; i++) {
+				cards[i].classList.add("hardMode"); //change css of the images
+			}
+			container.style.top="15%";
+		}
+		//activate reset button
+		resetButton.addEventListener("click", reset);
+
+		function flipCard() {
+		//start the timer
+		timerStart();
+		//to the element that triggered the event, add class flip to flip it
+		this.classList.add("flip");
+		if (this.querySelector(".card-upface").getAttribute("src")=="cards/card10.png") {
+			audioR.play();
+		}
+		if (currentlyFlipped==0) {
+			//first was flipped
+			currentlyFlipped++;
+			//save first
+			currentCard1=this;
+			//disable first 
+			this.removeEventListener("click", flipCard); //so that you cant compare with first card again
+		}
+		else if (currentlyFlipped==1) {
+			currentlyFlipped++;
+			console.log(currentlyFlipped);
+			currentCard2=this;
+			//a move means a pair of cards is selected
+			//once two cards are selected disable all so that no clicks can happen inbetween
+			disableCards();
+			//call play function once we got 2 cards, after 1.1 s so that the cards stay visible for a moment
+			setTimeout(playGame,800);
+		}
+		}
+
+		function timerStart(){
+			//if not started yet , start it 
+			if (!timerStarted) {
+				timerInterval = setInterval(function(){
+					time--;
+					if (time==0) {
+						clearInterval(timerInterval);
+						disableCards();
+						message.innerHTML="you lost!<br>you had "+(cardImages.length/2-pairsFound)+" pairs left. <br>click anywhere to play again."
+						message.style.display = "block";
+						document.addEventListener("click",reset);
+					}
+					if (time<10) {
+						timeString = "00:0"+time;
+					}
+					else if (time>=70) {
+						timeString="01:"+(time-60);
+					}
+					else if(time>=60){
+						timeString="01:0"+(time-60);
+					}
+					else{
+						timeString="00:"+time;
+					}
+					timerDiv.innerHTML=timeString;
+				}, 1000);
+			}
+			//for the first time of executing the function this bool is set to true
+			//so next time the function is called it wont do anything
+			timerStarted= true;
+		}
+
+		//enable and disable function that add and remove action listeners to cards not yet guessed correctly
+		//do not affect cards that are guessed (we dont want to reenable cards that are finally disabled)
+		function enableCards(){
+			for (var i = 0; i < cards.length; i++) {
+				if (!checkedMap.get(cards[i].id)) {
+				cards[i].addEventListener("click", flipCard); //addEvLis to every card-item element
+				}
+			}
+		}
+		function disableCards(){
+			for (var i = 0; i < cards.length; i++) {
+				if (!checkedMap.get(cards[i].id)) {
+				cards[i].removeEventListener("click", flipCard); //addEvLis to every card-item element
+				}
+			}	
+		}
+
+		//function that assigns a random div element a card image from the const cardImages array
+		function shuffleCardImages(cardArray){
+			//loop through all images
+			for (var i = 0; i < cardArray.length; i++) {
+				//get a random index by accesing elements of the randNumbArray
+				var divIndex = randNumbArray[i];
+				//convert it to a divID
+				var divID = "card" +divIndex;
+				//console.log(index+ " index")
+				//find a div with that id
+				var div = document.getElementById(divID);
+				//console.log(div);
+				//access its .card-upface child 
+				var cardUpfaceImg = div.querySelector(".card-upface");
+				//console.log("selected "+cardUpfaceImg);
+				//set src of that child to the image from the const array of images
+				cardUpfaceImg.setAttribute("src",cardArray[i]);
+				checkedMap.set(divID,false); //initiating the hashmap with divIDs
+				//initially set all values to false - no div is yet guessed correctly
+			}
+		}
+
+		//function that generates an array of unique (only one ocurrence) numbers 1-cardArray.length (can be modified for more images)
+		//default mode is 16 cards
+		
+		function getRandomNumber(length){
+			//local arr var where we store the unique numbers
+			let array = [];
+			
+			//when arr length reaches nr of cards (16 normal mode) stop looping
+			//while arr length is less than desired number of cards
+			while(array.length<length){
+				//get a random number 1-16
+        		var randomNumber = Math.floor(Math.random()*length) + 1;
+				//https://www.w3schools.com/jsref/jsref_includes_array.asp
+				//check if the array alr contains it
+				if (!array.includes(randomNumber)) {
+					array.push(randomNumber);
+				}
+			}
+			//return the array
+			return array;
+		}
+
+		function flipBack(){
+			for (var i = 0; i < cards.length; i++) {
+				cards[i].classList.remove("flip");
+			}
+		}
+		//function that resets the game
+		function reset(){
+			//remove message
+			message.style.display="none";
+			currentCard1=null;
+			currentCard2=null;
+			currentlyFlipped=0;
+			checkedMap=new Map();
+			//reset timer, number of moves, number of pairs guessed
+			numMoves=0;
+			//timer=0
+			timerStarted=false;
+			timerDiv.innerHTML="01:30";
+			time = 90;
+			clearInterval(timerInterval);
+			pairsFound=0;
+			flipBack();
+			//get random divs again
+			randNumbArray = getRandomNumber(cardImages.length);			
+			//call the shuffle function again to reshuffle
+			setTimeout(function(){shuffleCardImages(cardImages)},100);
+			updateLabel();
+			//at the end all are flipped to front and disable, restart
+			enableCards();
+			document.removeEventListener("click",reset);
+		}
+
+		//function compareCards
+		function playGame(){
+			resetButton.removeEventListener("click", reset);
+			console.log("playing"+currentCard1.id+" "+currentCard2.id);
+			let upface1=null;
+			let upface2=null;
+		 	//disable cards in the comparing moment
+			//check if the two pictures are the same
+			upface1 = currentCard1.querySelector(".card-upface").getAttribute("src");
+			upface2 = currentCard2.querySelector(".card-upface").getAttribute("src");
+
+			if (upface1==upface2) {
+				currentCard1.removeEventListener("click", flipCard);
+				currentCard2.removeEventListener("click", flipCard);
+				pairsFound++;
+				checkedMap.set(currentCard1.id,true);
+				checkedMap.set(currentCard2.id,true);
+			}
+			else{
+			//if not equal remove flipped class
+			currentCard1.classList.remove("flip");
+			currentCard2.classList.remove("flip");
+			}
+			numMoves++;
+			//display new nummoves and pairsfound
+			updateLabel();
+			if (pairsFound==(cardImages.length/2)) {
+				if (maxScore==0) {
+					maxScore=numMoves; //first try
+					updateMax();
+				}
+				//if it took less moves for the player to finish the game maxScore changes to smaller value
+				else if(maxScore>numMoves){
+					maxScore=numMoves;
+					updateMax();
+				}
+				clearInterval(timerInterval);
+				disableCards();
+				message.innerHTML="you won, good job!<br>you needed "+numMoves+" moves <br>for a time of "+(90-time)+" seconds.<br>"+
+				"click anywhere to restart.";
+				message.style.display = "block";
+				document.addEventListener("click",reset);
+				//resetButton.addEventListener("click", reset);
+
+			}
+			//restore variables
+			currentCard1=null;
+			currentCard2=null;
+			currentlyFlipped=0; 
+			enableCards(); // re enable cards when comparing finished
+			resetButton.addEventListener("click", reset);
+		}
+
+		//update label every player turn
+		function updateLabel(){
+			//updates global variables numMovesLabel and pairsFound label
+			numMovesLabel.innerHTML="# moves: "+numMoves;
+			pairsFoundLabel.innerHTML="pairs found: "+pairsFound;
+		}
+
+		//this label gets updated only at the end of the first game or when new max is achieved
+		function updateMax(){
+			maxScoreLabel.innerHTML="max moves: "+maxScore;
+		}
+	</script>
+
+</body>
+</html>
+
